@@ -8,16 +8,16 @@ function init() {
         dictDefaultMessage: "Some Message",
         autoProcessQueue: false
     });
-    
+
     dz.on("addedfile", function() {
         if (dz.files[1]!=null) {
-            dz.removeFile(dz.files[0]);        
+            dz.removeFile(dz.files[0]);
         }
     });
 
     dz.on("complete", function (file) {
         let imageData = file.dataURL;
-        
+
         //var url = "http://127.0.0.1:5000/classify_image";
         var url = "/api/classify_image";
 
@@ -27,12 +27,12 @@ function init() {
             console.log(data);
             if (!data || data.length==0) {
                 $("#resultHolder").hide();
-                $("#divClassTable").hide();                
+                $("#divClassTable").hide();
                 $("#error").show();
                 return;
             }
             let players = ["hardik_pandya", "jasprit_bumrah", "k_l_rahul", "ms_dhoni", "ravindra_jadeja", "rohit_sharma", "virat_kohli"];
-            
+
             let match = null;
             let bestScore = -1;
             for (let i=0;i<data.length;++i) {
@@ -55,12 +55,12 @@ function init() {
                     $(elementName).html(proabilityScore);
                 }
             }
-            // dz.removeFile(file);            
+            // dz.removeFile(file);
         });
     });
 
     $("#submitBtn").on('click', function (e) {
-        dz.processQueue();		
+        dz.processQueue();
     });
 }
 
